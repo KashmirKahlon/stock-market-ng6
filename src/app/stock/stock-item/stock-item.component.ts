@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core'
+import { Component, EventEmitter, Input, Output } from '@angular/core'
 
 import { Stock } from '../../model/stock'
 
@@ -11,10 +11,14 @@ export class StockItemComponent {
   @Input()
   public stock: Stock
 
-  constructor() {}
+  @Output()
+  private toggleFavorite: EventEmitter<Stock>
 
-  toggleFavorite(event) {
-    console.log('We are toggling the favorite state for this stock', event)
-    this.stock.favorite = !this.stock.favorite
+  constructor() {
+    this.toggleFavorite = new EventEmitter<Stock>()
+  }
+
+  onToggleFavorite(event) {
+    this.toggleFavorite.emit(this.stock)
   }
 }
